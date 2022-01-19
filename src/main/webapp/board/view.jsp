@@ -20,6 +20,12 @@
 	try {
 		conn = Dbconn.getConnection();
 		if(conn != null){
+			sql = "update tb_board set b_hit =b_hit+1  where b_idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,b_idx);
+			pstmt.executeUpdate();
+			
+			
 			sql = "select b_idx, b_userid, b_title, b_content, b_regdate, b_like, b_hit from tb_board where b_idx=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, b_idx);
@@ -43,6 +49,20 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티 - 글보기</title>
+<script>
+	function like(){
+		const xhr = new XMLHttpRequest();
+		xhr.onreadystatechange =function(){
+			if(xhr.readyState ==XMLHttpRequest.DONE && xhr.status ==200){
+				document.getElementById('like').innerHTML =xhr.responseText;
+			}
+		}	
+		xhr.open('GET','./like_ok.jsp?b_idx=<%=b_idx%>',true);
+		xhr.send();	
+	}
+
+
+</script>
 </head>
 <body>
 	<h2>커뮤니티 - 글보기</h2>
@@ -60,14 +80,14 @@
 			<td>조회수</td><td><%=b_hit%></td>
 		</tr>
 		<tr>
-			<td>좋아요</td><td><%=b_like%></td>
+			<td>좋아요</td><td><span id="like"><%=b_like%></span></td>
 		</tr>
 		<tr>
 			<td>내용</td><td><%=b_content%></td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="수정"> <input type="button" value="삭제"> <input type="button" value="좋아요"> <input type="button" value="리스트" onclick="location.href='./list.jsp'">
+				<input type="button" value="수정" onclick="location.href='./edit.jsp?b_idx=<%=b_idx%>'"> <input type="button" value="삭제"> <input type="button" value="좋아요" onclick="like()"> <input type="button" value="리스트" onclick="location.href='./list.jsp'">
 			</td>
 		</tr>
 	</table>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.*" %>
+<%@page import="com.koreait.db.Dbconn"%>
     
 <% 	
 	request.setCharacterEncoding("UTF-8");
@@ -14,7 +15,7 @@
 	
 <%
 }else{
-	
+	String b_idx=request.getParameter("b_idx");
 	String b_title=request.getParameter("b_title");
 	String b_content=request.getParameter("b_content");
 	
@@ -22,21 +23,17 @@
 	PreparedStatement pstmt=null;
 		
 	String sql="";
-	String url="jdbc:mysql://localhost:3306/aiclass";
-	String uid="root";
-	String upw="12341234";
 	
-	
-	
+
 	try{
-		Class.forName("com.mysql.cj.jdbc.Driver");
-	    conn = DriverManager.getConnection(url, uid, upw);
+	    conn =Dbconn.getConnection();
 	    if(conn!=null){
-	    	sql="insert into tb_board(b_userid, b_title, b_content) values (?,?,?)";
+	    	sql="update tb_board set b_title=?,b_content=? where b_idx=?";
 	    	pstmt=conn.prepareStatement(sql);
-	    	pstmt.setString(1, (String)session.getAttribute("userid"));
-	    	pstmt.setString(2,b_title);
-	    	pstmt.setString(3,b_content);
+	    	
+	    	pstmt.setString(1,b_title);
+	    	pstmt.setString(2,b_content);
+	    	pstmt.setString(3,b_idx);
 	    	pstmt.executeUpdate();
 	    }
 		
@@ -46,14 +43,11 @@
 	
 %>
 	<script>
-	alert('등록되었습니다');
-	location.href="./list.jsp";
+	alert('수정되었습니다');
+	location.href="./view.jsp?b_idx=<%=b_idx%>";
 	</script>
 	
 
 <% 
-
-
 }
 %>    
-
