@@ -60,9 +60,24 @@
 	String b_hit=rs.getString("b_hit");
 	String b_like=rs.getString("b_like");
 	
-
-
-
+	ResultSet rs_con=null;
+	int con_count=0;
+	
+	 try{	     
+	      conn = Dbconn.getConnection();
+	      sql="select count(r_boardidx) as con_total from tb_reply where r_boardidx=?";
+	      pstmt=conn.prepareStatement(sql);
+	      pstmt.setString(1, b_idx);
+	      rs_con=pstmt.executeQuery();
+	      
+	 }catch(Exception e){
+		 e.printStackTrace();
+	 }
+	 if(rs_con.next()){
+		 con_count=rs_con.getInt("con_total");
+	 }
+	 if(con_count==0){
+		 
 %>		
 		<tr align="center">
 			<td ><%=b_idx %></td>
@@ -73,7 +88,19 @@
 			<td><%=b_like %></td>
 		</tr>
 <%
+ }else{
+%>		
+<tr align="center">
+	<td ><%=b_idx %></td>
+	<td><a href="./view.jsp?b_idx=<%=b_idx%>"><%=b_title %> 댓글 수:[<%=con_count%>]</td>
+	<td><%=b_userid %></td>
+	<td><%=b_hit %></td>
+	<td><%=b_regdate %></td>
+	<td><%=b_like %></td>
+</tr>
+<%
 }
+	}
 %>
 	</table>
 	
