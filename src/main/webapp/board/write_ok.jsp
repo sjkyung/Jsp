@@ -34,7 +34,7 @@
 	    if(conn!=null){
 	    	sql="insert into tb_board(b_userid, b_title, b_content) values (?,?,?)";
 	    	pstmt=conn.prepareStatement(sql);
-	    	pstmt.setString(1, (String)session.getAttribute("userid"));
+	    	pstmt.setString(1,(String)session.getAttribute("userid"));
 	    	pstmt.setString(2,b_title);
 	    	pstmt.setString(3,b_content);
 	    	pstmt.executeUpdate();
