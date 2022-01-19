@@ -121,7 +121,7 @@ if(b_userid.equals((String)session.getAttribute("userid"))){
 		String r_regdate = rs.getString("r_regdate");
 		
 %>
-	<p><%=r_userid%> : <%=r_content%> (<%=r_regdate %>) <input type="button" value="삭제" onclick="location.href='./reply_del.jsp?r_idx=<%=r_idx%>&b_idx=<%=b_idx%>'"></p>
+	<p><%=r_userid%> : <%=r_content%> (<%=r_regdate %>) <input type="button" value="삭제" onclick="location.href='./reply_del.jsp?r_idx=<%=r_idx%>&&b_idx=<%=b_idx%>'"></p>
 <%
 	}
 %>	
