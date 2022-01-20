@@ -88,16 +88,16 @@
 			<td><%=b_like %></td>
 		</tr>
 <%
- }else{
+ 	}else{
 %>		
-<tr align="center">
-	<td ><%=b_idx %></td>
-	<td><a href="./view.jsp?b_idx=<%=b_idx%>"><%=b_title %> 댓글 수:[<%=con_count%>]</td>
-	<td><%=b_userid %></td>
-	<td><%=b_hit %></td>
-	<td><%=b_regdate %></td>
-	<td><%=b_like %></td>
-</tr>
+		<tr align="center">
+			<td ><%=b_idx %></td>
+			<td><a href="./view.jsp?b_idx=<%=b_idx%>"><%=b_title %> 댓글 수:[<%=con_count%>]</td>
+			<td><%=b_userid %></td>
+			<td><%=b_hit %></td>
+			<td><%=b_regdate %></td>
+			<td><%=b_like %></td>
+		</tr>
 <%
 }
 	}
